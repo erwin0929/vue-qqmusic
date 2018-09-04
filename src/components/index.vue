@@ -1,13 +1,20 @@
 <template>
 	<div class="page">
+        <!--
+            1. 顶部导航栏, 根据searchVisible来判断是否添加style
+            2. searchVisible 由搜索框来决定其值
+        -->
 		<mt-header fixed
 				   title="音乐馆"
 				   class="music-header scroll-header"
 				   :style="searchVisible && {top: '-40px'}"></mt-header>
+       
 		<form @submit="searching">
+            <!-- 搜索框, 同样根据searchVisible来判断是否上移40像素和铺满整屏的高度 -->
 			<search-vue v-model="searchValue"
 					    :visible.sync="searchVisible"
-					    :style="searchVisible && {top: '-40px', height: '100%',height: '100vh'}">
+					    :style="searchVisible && {top: '-40px', height: '100vh'}">
+         
 				<div class="hotkey-wrapper" v-if="searchState == 0">
 					<p>热门搜索</p>
 					<ul class="hotkey-list">
@@ -21,6 +28,7 @@
 					    </template>
 					</ul>
 				</div>
+    
 				<div class="result-list" v-if="searchState == 2">
 					<mt-cell class="music-cell-type5"
 					         v-for="(item, index) in searchResult"
@@ -89,7 +97,7 @@
 
 	// Vuex Playing Module NameSpace
 	const NameSpace = 'playing';
-
+ 
 	export default {
 		name: 'index',
 		created() {

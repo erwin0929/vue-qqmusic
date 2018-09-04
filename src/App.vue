@@ -5,7 +5,10 @@
 		  <router-view></router-view>
 	  	<!-- </keep-alive> -->
 	  </transition>
+      
+      <!-- 底部固定的播放条 -->
 	  <play-fixed></play-fixed>
+     
   	  <transition name="list-view">
 	  	<component :is="showlist && 'listView'"></component>
 	  </transition>
@@ -52,7 +55,7 @@
 							store.commit('transition/setTransition', 'turn-on');
 							this.prevRoutes.push(from.name);
 						}
-					} 
+					}
 				}
 			}
 		},

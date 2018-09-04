@@ -3,20 +3,11 @@
     <div class="mint-searchbar">
       <div class="mint-searchbar-inner">
         <i class="mintui mintui-search"></i>
-        <input
-        ref="input"
-        @click="visible = true"
-        type="search"
-        v-model="currentValue"
-        :placeholder="placeholder"
-        class="mint-searchbar-core">
+          <!-- currentValue与接受的value值同步更新 -->
+        <input class="mint-searchbar-core" ref="input" @click="visible = true" type="search" v-model="currentValue" :placeholder="placeholder">
       </div>
-      <a
-        class="mint-searchbar-cancel"
-        @click="visible = false, currentValue = ''"
-        v-show="visible"
-        v-text="cancelText">
-      </a>
+        <!-- 取消按钮,点击时清空文本并且visible置为false -->
+      <a class="mint-searchbar-cancel" @click="visible = false, currentValue = ''" v-show="visible">{{cancelText}}</a>
     </div>
     <div class="mint-search-list" v-show="visible">
       <div class="mint-search-list-warp">
@@ -57,12 +48,15 @@ export default {
     value(val) {
       this.currentValue = val;
     },
+    //  visible变量在输入框被点击时置为true
+    //  监听该变量,一旦发生改变,则与之绑定的父组件中的searchVisible也发生改变,来模拟子向父通信
     visible() {
       this.$emit('update:visible', this.visible);
     }
   },
 
   props: {
+    // 通过v-model="searchValue" 接收
     value: String,
     autofocus: Boolean,
     show: Boolean,
